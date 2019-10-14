@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ProvaHigorCouto.Models.Funcionalidade>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2><span class="glyphicon glyphicon glyphicon-th-list"></span> Funcionalidades</h2>
+    </div>
+    <div class="col-md-4">
+        <br />
+        <a href="~/Funcionalidades/Form" class="btn btn-primary pull-right">Cadastrar funcionalidade</a>
+    </div>
+</div>
+<br />
+
+<table class="tabela">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td class="text-center" colspan="2">Nenhuma funcionalidade cadastrada</td>
+            </tr>
+        }
+        @foreach (var funcionalidade in Model)
+        {
+            <tr>
+                <td>@funcionalidade.nome</td>
+                <td class="text-right">
+                    <a href="~/Funcionalidades/Form/@funcionalidade.id"><span class="btn btn-info glyphicon glyphicon-pencil"></span></a>
+                    <a onclick="Confirmacao('/Funcionalidades/Excluir/@funcionalidade.id')"><span class="btn btn-danger glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

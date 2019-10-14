@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ProvaHigorCouto.Models.Perfil>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2><span class="glyphicon glyphicon glyphicon-th-list"></span> Perfis</h2>
+    </div>
+    <div class="col-md-4">
+        <br />
+        <a href="~/Perfis/Form" class="btn btn-primary pull-right">Cadastrar perfil</a>
+    </div>
+</div>
+<br />
+
+<table class="tabela">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td class="text-center" colspan="2">Nenhum perfil cadastrado</td>
+            </tr>
+        }
+        @foreach (var perfil in Model)
+        {
+            <tr>
+                <td>@perfil.nome</td>
+                <td class="text-right">
+                    <a href="~/Perfis/Form/@perfil.id"><span class="btn btn-info glyphicon glyphicon-pencil"></span></a>
+                    <a onclick="Confirmacao('/Perfis/Excluir/@perfil.id')"><span class="btn btn-danger glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

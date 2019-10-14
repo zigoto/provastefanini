@@ -1,0 +1,34 @@
+﻿@model ProvaHigorCouto.Models.Usuario
+@{
+    ViewData["Title"] = "Form";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2><span class="glyphicon glyphicon-user"></span> Usuários</h2>
+        <a href="~/Usuarios">Listagem </a> / Formulário
+    </div>
+</div>
+<hr />
+<form method="post" asp-action="Salvar">
+    <div class="row">
+        <div class="col-md-6">
+            <label asp-for="nome">Nome * <span asp-validation-for="nome" style="color: #FF0000;"></span></label>
+            <input asp-for="nome" class="form-control" placeholder="Informe o nome" />
+        </div>
+        <div class="col-md-6">
+            <label asp-for="idPerfil">Perfil * <span asp-validation-for="idPerfil" style="color: #FF0000;"></span></label>
+            <select asp-for="idPerfil" class="form-control" asp-items="@(new SelectList(ViewBag.perfis,"id","nome"))">
+                <option value="">Selecione um perfil</option>
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="~/Usuarios" class="btn btn-default">Voltar</a>
+            <input type="submit" class="btn btn-primary" value="Salvar" />
+        </div>
+    </div>
+</form>
+

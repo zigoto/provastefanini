@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ProvaHigorCouto.Models.Usuario>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2><span class="glyphicon glyphicon-user"></span> Usuários</h2>
+    </div>
+    <div class="col-md-4">
+        <br />
+        <a href="~/Usuarios/Form" class="btn btn-primary pull-right">Cadastrar usuário</a>
+    </div>
+</div>
+<br />
+
+<table class="tabela">
+    <thead >
+        <tr>
+            <th>Nome</th>
+            <th>Perfil</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td class="text-center" colspan="3">Nenhum usuário cadastrado</td>
+            </tr>
+        }
+        @foreach (var usuario in Model)
+        {
+    <tr>
+        <td>@usuario.nome</td>
+        <td>@usuario.Perfil.nome</td>
+        <td class="text-right">
+            <a href="~/Usuarios/Form/@usuario.id"><span class="btn btn-info glyphicon glyphicon-pencil"></span></a>
+            <a onclick="Confirmacao('/Usuarios/Excluir/@usuario.id')"><span class="btn btn-danger glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+        }
+    </tbody>
+</table>

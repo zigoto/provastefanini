@@ -1,0 +1,29 @@
+﻿@model ProvaHigorCouto.Models.Funcionalidade
+@{
+    ViewData["Title"] = "Form";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2><span class="glyphicon glyphicon-th-list"></span> Funcionalidades</h2>
+        <a href="~/Funcionalidades">Listagem </a> / Formulário
+    </div>
+</div>
+<hr />
+<form method="post" asp-action="Salvar">
+    <input type="hidden" asp-for="id"/>
+    <div class="row">
+        <div class="col-md-12">
+            <label asp-for="nome">Nome da funcionalidade * <span asp-validation-for="nome" style="color: #FF0000;"></span></label>
+            <input asp-for="nome" class="form-control" placeholder="Informe o nome"/>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a asp-action="index" asp-controller="funcionalidades" class="btn btn-default">Voltar</a>
+            <input type="submit" class="btn btn-primary" value="Salvar" />
+        </div>
+    </div>
+</form>
+

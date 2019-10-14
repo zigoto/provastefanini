@@ -1,0 +1,161 @@
+﻿@using ProvaHigorCouto.Enum
+
+@{
+    var visibilidadeMensagem = ViewBag.mensagem != null ? "display: block;" : "display: none;";
+    var tituloMensagem = ViewBag.tituloMensagem;
+    var tipoMensagem = ViewBag.tipoMensagem;
+    var conteudoMensagem = ViewBag.mensagem;
+    var classeMensagem = "";
+
+    switch (tipoMensagem)
+    {
+        case TipoMensagem.Sucesso:
+            classeMensagem = "mensagem-sucesso";
+            break;
+        case TipoMensagem.Erro:
+            classeMensagem = "mensagem-erro";
+            break;
+        case TipoMensagem.Alerta:
+            classeMensagem = "mensagem-alerta";
+            break;
+    }
+}
+<script>
+    function FecharMensagem() {
+        $("#LightBoxMensagem").hide();
+        $("#Mensagem").hide();
+    }
+</script>
+<style>
+    #LightBoxMensagem {
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+        background: black;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9997;
+        display: none;
+    }
+
+    #RegiaoQueFechaMensagemNoClique {
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    #Mensagem {
+        z-index: 9999;
+        background: white;
+        width: 50%;
+        height: 250px;
+        box-shadow: 0 0 10px black;
+        position: fixed;
+        top: 100px;
+        left: 25%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    #CabecalhoMensagem {
+        height: 45px;
+        padding: 10px;
+        color: white;
+        font-size: 14px;
+    }
+
+    #ConteudoMensagem {
+        padding: 10px;
+    }
+
+    #BotoesConfirmacao, #BotoesConfirmacaoAjax {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        display: none;
+    }
+
+    #FecharMensagem {
+        border-radius: 20px;
+        padding: 2px 8px 0;
+        float: right;
+        font-weight: bold;
+        display: block;
+    }
+
+        #FecharMensagem:hover {
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+
+    .mensagem-sucesso #CabecalhoMensagem {
+        background: #008B00;
+    }
+
+    .mensagem-sucesso #FecharMensagem {
+        background: #005e00;
+        color: white;
+    }
+
+        .mensagem-sucesso #FecharMensagem:hover {
+            background: white;
+            color: #005e00;
+        }
+
+
+    .mensagem-alerta #CabecalhoMensagem {
+        background: #FF8C00;
+    }
+
+    .mensagem-alerta #FecharMensagem {
+        background: #8B4500;
+        color: white;
+    }
+
+        .mensagem-alerta #FecharMensagem:hover {
+            background: white;
+            color: #8B4500;
+        }
+
+
+    .mensagem-erro #CabecalhoMensagem {
+        background: #CD3333;
+    }
+
+    .mensagem-erro #FecharMensagem {
+        background: #8B2323;
+        color: #FFE4E1;
+    }
+
+        .mensagem-erro #FecharMensagem:hover {
+            background: white;
+            color: #8B2323;
+        }
+</style>
+
+<div id="LightBoxMensagem" style="@visibilidadeMensagem">
+    <div id="RegiaoQueFechaMensagemNoClique" onclick="FecharMensagem();"></div>
+</div>
+<div id="Mensagem" class="@classeMensagem" style="@visibilidadeMensagem">
+    <div id="CabecalhoMensagem">
+        <a id="FecharMensagem" onclick="FecharMensagem();">&times;</a>
+        <span id="TituloMensagem">@tituloMensagem</span><br />
+    </div>
+    <div id="ConteudoMensagem">
+        @conteudoMensagem
+    </div>
+    <div id="BotoesConfirmacao">
+        <a onclick="FecharMensagem()" class="pull-right btn btn-danger">Não</a>
+        <a id="btnConfirmacao" class="pull-right btn btn-success" style="margin-right: 5px;">Sim</a>
+    </div>
+</div>
+

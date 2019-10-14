@@ -1,0 +1,71 @@
+﻿@model ProvaHigorCouto.Models.Perfil
+@{
+    ViewData["Title"] = "Form";
+    IEnumerable<Funcionalidade> funcionalidades = ViewBag.funcionalidades;
+    var idsFuncionalidades = "";
+    if(Model.FuncionalidadesPerfil != null)
+    {
+        foreach(var funcionalidade in Model.FuncionalidadesPerfil)
+        {
+            idsFuncionalidades += funcionalidade.idFuncionalidade + ";";
+        }
+    }
+    
+}
+
+<script>
+    function clickFuncionalidade(id) {
+        var ids = "";
+
+        $(".ckbfuncionalidade:checked").each(function () {
+            var id = $(this).attr('id').replace("ckbfuncionalidade_", "");
+            ids += id + ";";
+        });
+        $("#idsFuncionalidades").val(ids);
+    }
+</script>
+
+<div class="row">
+    <div class="col-md-8">
+        <h2><span class="glyphicon glyphicon-ok"></span> Perfis</h2>
+        <a href="~/Perfis">Listagem </a> / Formulário
+    </div>
+</div>
+<hr />
+<form method="post" asp-action="Salvar">
+    <input type="hidden" asp-for="id" />
+    <input type="hidden" asp-for="idsFuncionalidades" value="@idsFuncionalidades"/>
+    <div class="row">
+        <div class="col-md-12">
+            <label asp-for="nome">Nome do perfil * <span asp-validation-for="nome" style="color: #FF0000;"></span></label>
+            <input asp-for="nome" class="form-control" placeholder="Informe o nome" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <label>Funcionalidades vinculadas</label>
+            <br />
+            <div style="border: 1px solid #e8e8e8; padding: 10px;">
+                @foreach (var funcionalidade in funcionalidades)
+                {
+                    var checado = Model.FuncionalidadesPerfil != null && Model.FuncionalidadesPerfil.Any(f => f.idFuncionalidade == funcionalidade.id) ? "checked" : "";
+                    <input @checado type="checkbox" class="ckbfuncionalidade" id="ckbfuncionalidade_@funcionalidade.id" onclick="clickFuncionalidade(@funcionalidade.id);"/> @funcionalidade.nome<br />
+                }
+                @if (!funcionalidades.Any())
+                {
+                    <span style="color: #b5b5b5">Nenhuma funcionalidade cadastrada</span>
+                }
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="~/Perfis" class="btn btn-default">Voltar</a>
+            <input type="submit" class="btn btn-primary" value="Salvar" />
+        </div>
+    </div>
+</form>
+
